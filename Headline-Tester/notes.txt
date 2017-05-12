@@ -1,0 +1,17 @@
+Implementations:
+-Naive BOW (naivebow.py)
+--The headline is deconstructed into a word set, and the body broken into sentences. Each sentence from the body is tested against the body set, and the feature used for related v unrelated 
+--catagorization is the number of words shared between the headline adn the sentence from the body which shares the most words with the headline. The average value for both related and unrelated
+--are stored, and the test examples are run through the same process (ending up with a single feature being the same as before). It is classified to related/unrelated based on which average the
+--value is closer to.
+-Less Naive BOW (lnbow.py)
+--The headline is deconstructed into a word list exluding closed class words. There is a single feature for each example indicating the number of words in the body that exist in the headline.
+--Class is assigned based on which class average is closer to the frequency for the example. This actually works slightly worse than naive. This appears to have slightly better results when
+--discriminating between related and unrelated than the most naive implementation (across the board).
+-Less Naive: Non-frequency (lnnfbow.py)
+--The directly above approach favors longer bodies for classification as related, and skews the average slightly. This approach hold on to the full-document approach and the tag restrictions,
+--but doesn't do frequency, only inclusion. This has the effect of a higher score, but lower overall accuracy. Essentially, it misses fewer related ones, so the score is higher even though it
+--incorrectly admits more unrelated news as related, it marks only 27% as many related bodies as unrelated as the previous method. This is likely to be preferable in the long run (it mislables
+--only 12 percent of related news as unrelated, as opposed to the previous method which marks 44.4% of related news as unrelated; conversly, this method marks 22.4% of the unrelated news as related,
+--whereas the previous method only marked 16.8% of unrelated news as related). Going purely by related/unrelated (I'm currently picking related catagories at random), we achieve 80.3% accuracy on
+--this part of the classification. The previous method achieves only 76.0%, which places this method at the best currently.
